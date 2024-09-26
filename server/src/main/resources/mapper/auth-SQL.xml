@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.goose.iGoose.auth.mapper.AuthMapper">
+
+    <insert id="insertUser" parameterType="UserVO">
+        INSERT INTO "USER" (uuid,
+                            id,
+                            name,
+                            password,
+                            email,
+                            pronoun,
+                            intor,
+                            gender,
+                            tel,
+                            status,
+                            profile,
+                            feeling,
+                            is_professional,
+                            is_verified,
+                            revenue_status,
+                            created,
+                            updated)
+        VALUES (#{uuid},
+                #{id},
+                #{name},
+                #{password},
+                #{email},
+                #{pronoun},
+                #{intor},
+                #{gender},
+                #{tel},
+                #{status},
+                #{profile},
+                #{feeling},
+                #{is_professional},
+                #{is_verified},
+                #{revenue_status},
+                now(),
+                now());
+    </insert>
+
+</mapper>
