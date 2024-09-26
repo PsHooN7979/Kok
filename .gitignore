@@ -248,3 +248,4 @@ iOSInjectionProject/
 
 
 # 각자 깃에 올라가면 안되는 properties같은 파일 아래에 추가
+application.yml
