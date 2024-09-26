@@ -39,17 +39,17 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String uuid) throws UsernameNotFoundException {
         UserVO userVO = null;
         try {
-            userVO = authMapper.findById(id);
+            userVO = authMapper.findByUuid(uuid);
         } catch (Exception e) {
             // Handle the exception (e.g., log it, throw a new exception, etc.)
-            throw new UsernameNotFoundException("User not found with username: " + id, e);
+            throw new UsernameNotFoundException("User not found with username: " + uuid, e);
         }
 
         if (userVO == null) {
-            throw new UsernameNotFoundException("User not found with username: " + id);
+            throw new UsernameNotFoundException("User not found with username: " + uuid);
         }
 
 

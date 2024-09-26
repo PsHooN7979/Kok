@@ -24,6 +24,11 @@ public class RefreshTokenService {
         return redisTemplate.opsForValue().get(uuid);
     }
 
+    public boolean isValidRefreshToken(String uuid, String refreshToken) {
+        String storedRefreshToken = redisTemplate.opsForValue().get(uuid);
+        return storedRefreshToken != null && refreshToken.equals(storedRefreshToken);
+    }
+
     // Refresh Token 삭제 (RTR 기법)
     public void deleteRefreshToken(String uuid) {
         redisTemplate.delete(uuid);

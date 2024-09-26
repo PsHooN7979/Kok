@@ -1,10 +1,7 @@
 package com.example.goose.common.jwt;
 
 import com.example.goose.iGoose.auth.dto.LoginRequest;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -69,13 +66,23 @@ public class JwtTokenProvider {
     }
 
     // 토큰 만료 여부 검증
+//    public boolean isTokenExpired(String token) {
+//        Date expirationDate = Jwts.parser()
+//                .setSigningKey(secretKey)
+//                .parseClaimsJws(token)
+//                .getBody()
+//                .getExpiration();
+//        return expirationDate.before(new Date());
+//    }
+
     public boolean isTokenExpired(String token) {
-        Date expirationDate = Jwts.parser()
-                .setSigningKey(secretKey)
-                .parseClaimsJws(token)
-                .getBody()
-                .getExpiration();
-        return expirationDate.before(new Date());
+        try {
+            Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+            return claims.getExpiration().before(new Date());
+        } catch (ExpiredJwtException e) {
+            // Token is expired, handle this scenario
+            return true;
+        }
     }
 
 

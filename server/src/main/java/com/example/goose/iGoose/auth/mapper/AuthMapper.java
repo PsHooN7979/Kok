@@ -13,4 +13,7 @@ public interface AuthMapper {
     @Select("SELECT * FROM \"USER\" WHERE \"id\" = #{id}")
     UserVO findById(String id) throws Exception;
 
+
+    @Select("SELECT * FROM \"USER\" WHERE \"uuid\" = #{uuid}")
+    UserVO findByUuid(String uuid) throws Exception;
 }

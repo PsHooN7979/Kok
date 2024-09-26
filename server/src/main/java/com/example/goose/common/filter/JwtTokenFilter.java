@@ -2,6 +2,7 @@ package com.example.goose.common.filter;
 
 import com.example.goose.common.jwt.JwtTokenProvider;
 import com.example.goose.common.service.CustomUserDetailsService;
+import com.example.goose.common.service.RefreshTokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final CustomUserDetailsService customUserDetailsService;
+    private final RefreshTokenService refreshTokenService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -32,23 +34,25 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         String token = getJwtFromRequest(request);
 
         // 토큰이 존재하고 유효하다면 사용자 인증 처리
-        if (token != null && jwtTokenProvider.validateToken(token)) {
-            try {
-                String id = jwtTokenProvider.getUserIdFromToken(token);  // 토큰에서 사용자 ID 추출
-                UserDetails userDetails = customUserDetailsService.loadUserByUsername(id);  // 사용자 정보 로드
+        if (token != null) {
+            // accessToken이 만료되었는지 확인
+            boolean isTokenExpired = jwtTokenProvider.isTokenExpired(token);
 
-                // 인증 정보 설정
-                UsernamePasswordAuthenticationToken authenticationToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-                // SecurityContext에 인증 정보 저장
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-
-            } catch (Exception e) {
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                response.getWriter().write("Unauthorized: " + e.getMessage());   // 에러 메시지 출력
-                return;
+            if (isTokenExpired) {
+                // accessToken이 만료되었을 때, refreshToken을 사용해서 새로운 accessToken을 발급하는 로직
+                String refreshToken = request.getHeader("Refresh-Token");
+                if (refreshToken != null && jwtTokenProvider.validateToken(refreshToken)) {
+                    // refreshToken이 유효한지 확인 후 새로운 accessToken 발급
+                    String uuid = jwtTokenProvider.getUserIdFromToken(refreshToken);
+                    if (refreshTokenService.isValidRefreshToken(uuid, refreshToken)) {
+                        String newAccessToken = jwtTokenProvider.generateAccessToken(uuid);
+                        // 헤더에 새로운 accessToken 추가
+                        response.setHeader("Authorization", "Bearer " + newAccessToken);
+                    }
+                }
+            } else {
+                // accessToken이 유효한 경우 처리
+                authenticateUserFromToken(token, request);
             }
         }
 
@@ -64,4 +68,16 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         }
         return null;
     }
+
+    private void authenticateUserFromToken(String token, HttpServletRequest request) {
+        String userId = jwtTokenProvider.getUserIdFromToken(token);
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(userId);
+
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                userDetails, null, userDetails.getAuthorities());
+        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+    }
+
 }
