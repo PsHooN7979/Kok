@@ -246,8 +246,5 @@ iOSInjectionProject/
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
-# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,intellij,xcode,react,swift
 
-
-
-# 각자 깃에 올라가면 안되는 properties같은 파일 아래에 추가`
+# 각자 깃에 올라가면 안되는 properties같은 파일 아래에 추가
