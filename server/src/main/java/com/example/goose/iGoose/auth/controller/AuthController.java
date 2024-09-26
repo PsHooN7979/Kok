@@ -34,4 +34,8 @@ public class AuthController {
         return authService.login(loginRequest);
     }
 
+    @PostMapping("/refresh")
+    public ResponseEntity<?> refresh(@RequestHeader("Refresh-Token") String refreshToken) throws Exception {
+        return authService.refreshAccessToken(refreshToken);
+    }
 }
