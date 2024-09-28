@@ -55,6 +55,13 @@ dependencies {
     // Validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+    // Spring Boot GraphQL dependency
+    implementation 'com.graphql-java-kickstart:graphql-spring-boot-starter:15.0.0'
+
+    // Spring Boot GraphQL Tools to map schemas to resolvers
+    implementation 'com.graphql-java-kickstart:graphql-java-tools:11.1.0'
+
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
