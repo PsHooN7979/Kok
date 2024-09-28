@@ -34,8 +34,21 @@ public class AuthController {
         return authService.login(loginRequest);
     }
 
+    // refreshToken 재발행
     @PostMapping("/refresh")
     public ResponseEntity<?> refresh(@RequestHeader("Refresh-Token") String refreshToken) throws Exception {
         return authService.refreshAccessToken(refreshToken);
     }
+
+    // 로그아웃 API
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(@RequestHeader("Refresh-Token") String refreshToken) throws Exception {
+        try {
+            authService.logout(refreshToken);  // Service layer handles the logout logic
+            return ResponseEntity.ok("로그아웃 성공");
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body("로그아웃 실패: " + e.getMessage());
+        }
+    }
+
 }
