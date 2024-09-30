@@ -1,0 +1,44 @@
+type Query {
+    getUser(uuid: String!): User
+    getAllUsers: [User]}
+
+type Mutation {
+    createUser(input: UserInput): User
+}
+
+type User {
+    uuid: String!
+    id: String!
+    user_name: String!
+    password: String!
+    pronoun: String
+    intro: String
+    gender: String
+    email: String!
+    phone_number: String
+    status: String!
+    profile: String
+    feeling: String
+    is_active: Boolean
+    is_verified: Boolean
+    revenue_state: String!
+    created: String!
+    updated: String!
+}
+
+input UserInput {
+    id: String!
+    user_name: String!
+    password: String!
+    pronoun: String
+    intro: String
+    gender: String
+    email: String!
+    phone_number: String
+    status: String!
+    profile: String
+    feeling: String
+    is_active: Boolean
+    is_verified: Boolean
+    revenue_state: String!
+    }
