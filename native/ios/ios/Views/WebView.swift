@@ -12,7 +12,11 @@ struct WebView: UIViewRepresentable {
     let url: URL
 
     func makeUIView(context: Context) -> WKWebView {
-        let webView = WKWebView()
+        let configuration = WKWebViewConfiguration()
+        configuration.allowsInlineMediaPlayback = true
+        configuration.preferences.javaScriptCanOpenWindowsAutomatically = true
+        
+        let webView = WKWebView(frame: .zero, configuration: configuration)
         webView.allowsBackForwardNavigationGestures = true
         return webView
     }
