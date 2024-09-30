@@ -7,15 +7,18 @@ import com.example.goose.iGoose.auth.dto.LoginRequest;
 import com.example.goose.iGoose.auth.mapper.AuthMapper;
 import com.example.goose.iGoose.auth.vo.UserVO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
+import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthService {
 
     private final AuthMapper authMapper;
@@ -28,17 +31,16 @@ public class AuthService {
     // 회원가입 로직
     public void signup(UserVO userVO) throws Exception {
         userVO.setUuid(UUID.randomUUID().toString());
-        System.out.println("암호화 전 비밀번호:" + userVO.getPassword());
         userVO.setPassword(passwordEncoder.encode(userVO.getPassword())); // 비밀번호 암호화
-        System.out.println("암호화 후 비밀번호:" + userVO.getPassword());
         authMapper.insertUser(userVO);
     }
 
     // 로그인 로직
     public ResponseEntity<?> login(LoginRequest loginRequest) throws Exception {
-        UserVO user = authMapper.findById(loginRequest.getId()); // Id로 유저 정보 검색
+        UserVO user = authMapper.findById(loginRequest.getId()); // 로그인할때 입력한 Id 값으로 유저 정보 검색
 
-        if (user != null && passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) { // password 비교
+        // 암호화 한 password 비교
+        if (user != null && passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
 
             String accessToken = jwtTokenProvider.generateAccessToken(user.getUuid());
             String refreshToken = jwtTokenProvider.generateRefreshToken(user.getUuid());
@@ -50,14 +52,44 @@ public class AuthService {
 
             return ResponseEntity.ok()
                     .header("Authorization", "Bearer " + accessToken)
-                    .header("Refresh-Token", refreshToken)
+                    .header("Refresh-Token", "Bearer " + refreshToken)
                     .body("로그인 성공");
         } else {
             return ResponseEntity.status(401).body("로그인 실패");
         }
     }
 
+    // 로그아웃 로직
+    public void logout(String refreshToken) throws Exception {
+
+        if (refreshToken.startsWith("Bearer ")) {
+            refreshToken = refreshToken.substring(7);
+
+        }
+        
+        if(!jwtTokenProvider.validateToken(refreshToken)) {
+            throw new Exception("유효하지 않은 refreshToken");
+        }
+
+        String uuid = jwtTokenProvider.getUserIdFromToken(refreshToken);
+
+        String storedRefreshToken = refreshTokenService.getRefreshToken(uuid);
+        if (!refreshToken.equals(storedRefreshToken)) {
+            throw new Exception("저장된 Refresh Token과 일치하지 않습니다.");
+        }
+
+        refreshTokenService.deleteRefreshToken(uuid);
+
+    }
+
+
+    // 새로운 refreshToken 생성
     public ResponseEntity<?> refreshAccessToken(String refreshToken) throws Exception {
+        // 토큰 만료 여부 검증
+        if (refreshToken.startsWith("Bearer ")) {
+            refreshToken = refreshToken.substring(7);
+
+        }
         if (!jwtTokenProvider.validateToken(refreshToken)) {
             return ResponseEntity.status(401).body("유효하지 않은 Rrefresh Token 입니다.");
         }
@@ -68,23 +100,19 @@ public class AuthService {
             return ResponseEntity.status(401).body("유효하지 않거나 만료된 Refresh Token 입니다.");
         }
 
+
         // 유저 정보 찾기
         UserVO userVO = authMapper.findByUuid(uuid);
 
-        // 유저 정보 없으면 오류처리
+        // 유저 정보 없으면 예외처리
         if (userVO == null) {
             return ResponseEntity.status(401).body("유저 정보를 찾을 수 없습니다.");
         }
 
-        if(refreshToken.equals(refreshTokenService.getRefreshToken(userVO.getUuid()))) {
-            refreshTokenService.storeRefreshToken(uuid, refreshToken, System.currentTimeMillis());
+        // redis에 있는 refreshToken과 값이 다르면 예외처리
+        if (!refreshTokenService.isValidRefreshToken(uuid, refreshToken)) {
+            return ResponseEntity.status(401).body("유효하지 않거나 만료된 Refresh Token 입니다.");
         }
-        else
-            return ResponseEntity.status(401).body("redis에 저장된 refreshToken과 값이 다름");
-
-
-
-
 
         // 새로운 토큰 생성
         String newAccessToken = jwtTokenProvider.generateAccessToken(userVO.getUuid());
@@ -95,7 +123,7 @@ public class AuthService {
 
         return ResponseEntity.ok()
                 .header("Authorization", "Bearer " + newAccessToken)
-                .header("Refresh-Token", newRefeshToken)
+                .header("Refresh-Token", "Bearer " + newRefeshToken)
                 .body("토큰 재발행 성공");
     }
 

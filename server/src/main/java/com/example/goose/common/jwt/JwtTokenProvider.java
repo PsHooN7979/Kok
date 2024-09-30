@@ -65,15 +65,6 @@ public class JwtTokenProvider {
                 .getSubject();
     }
 
-    // 토큰 만료 여부 검증
-//    public boolean isTokenExpired(String token) {
-//        Date expirationDate = Jwts.parser()
-//                .setSigningKey(secretKey)
-//                .parseClaimsJws(token)
-//                .getBody()
-//                .getExpiration();
-//        return expirationDate.before(new Date());
-//    }
 
     public boolean isTokenExpired(String token) {
         try {
