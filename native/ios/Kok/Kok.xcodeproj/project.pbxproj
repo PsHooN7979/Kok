@@ -7,19 +7,32 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		5555DE492CA7EABC000A5B7E /* ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		55C60B782CAEDF6900C20675 /* Kok.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kok.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		55C60BB52CAEE2EB00C20675 /* Exceptions for "Kok" folder in "Kok" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/Info.plist,
+			);
+			target = 55C60B772CAEDF6900C20675 /* Kok */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		5555DE4B2CA7EABC000A5B7E /* ios */ = {
+		55C60B7A2CAEDF6900C20675 /* Kok */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ios;
+			exceptions = (
+				55C60BB52CAEE2EB00C20675 /* Exceptions for "Kok" folder in "Kok" target */,
+			);
+			path = Kok;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		5555DE462CA7EABC000A5B7E /* Frameworks */ = {
+		55C60B752CAEDF6900C20675 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -29,18 +42,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5555DE402CA7EABC000A5B7E = {
+		55C60B6F2CAEDF6900C20675 = {
 			isa = PBXGroup;
 			children = (
-				5555DE4B2CA7EABC000A5B7E /* ios */,
-				5555DE4A2CA7EABC000A5B7E /* Products */,
+				55C60B7A2CAEDF6900C20675 /* Kok */,
+				55C60B792CAEDF6900C20675 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		5555DE4A2CA7EABC000A5B7E /* Products */ = {
+		55C60B792CAEDF6900C20675 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5555DE492CA7EABC000A5B7E /* ios.app */,
+				55C60B782CAEDF6900C20675 /* Kok.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,64 +61,64 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5555DE482CA7EABC000A5B7E /* ios */ = {
+		55C60B772CAEDF6900C20675 /* Kok */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5555DE572CA7EABE000A5B7E /* Build configuration list for PBXNativeTarget "ios" */;
+			buildConfigurationList = 55C60B8B2CAEDF6B00C20675 /* Build configuration list for PBXNativeTarget "Kok" */;
 			buildPhases = (
-				5555DE452CA7EABC000A5B7E /* Sources */,
-				5555DE462CA7EABC000A5B7E /* Frameworks */,
-				5555DE472CA7EABC000A5B7E /* Resources */,
+				55C60B742CAEDF6900C20675 /* Sources */,
+				55C60B752CAEDF6900C20675 /* Frameworks */,
+				55C60B762CAEDF6900C20675 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				5555DE4B2CA7EABC000A5B7E /* ios */,
+				55C60B7A2CAEDF6900C20675 /* Kok */,
 			);
-			name = ios;
+			name = Kok;
 			packageProductDependencies = (
 			);
-			productName = ios;
-			productReference = 5555DE492CA7EABC000A5B7E /* ios.app */;
+			productName = Kok;
+			productReference = 55C60B782CAEDF6900C20675 /* Kok.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		5555DE412CA7EABC000A5B7E /* Project object */ = {
+		55C60B702CAEDF6900C20675 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
-					5555DE482CA7EABC000A5B7E = {
+					55C60B772CAEDF6900C20675 = {
 						CreatedOnToolsVersion = 16.0;
 					};
 				};
 			};
-			buildConfigurationList = 5555DE442CA7EABC000A5B7E /* Build configuration list for PBXProject "ios" */;
+			buildConfigurationList = 55C60B732CAEDF6900C20675 /* Build configuration list for PBXProject "Kok" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 5555DE402CA7EABC000A5B7E;
+			mainGroup = 55C60B6F2CAEDF6900C20675;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 5555DE4A2CA7EABC000A5B7E /* Products */;
+			productRefGroup = 55C60B792CAEDF6900C20675 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5555DE482CA7EABC000A5B7E /* ios */,
+				55C60B772CAEDF6900C20675 /* Kok */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		5555DE472CA7EABC000A5B7E /* Resources */ = {
+		55C60B762CAEDF6900C20675 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -115,7 +128,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		5555DE452CA7EABC000A5B7E /* Sources */ = {
+		55C60B742CAEDF6900C20675 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -125,7 +138,63 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		5555DE552CA7EABE000A5B7E /* Debug */ = {
+		55C60B8C2CAEDF6B00C20675 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = M39MJFL9Y3;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Kok/Resources/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.application.iGooseKok;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		55C60B8D2CAEDF6B00C20675 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = M39MJFL9Y3;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Kok/Resources/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.application.iGooseKok;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		55C60B8E2CAEDF6B00C20675 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -188,7 +257,7 @@
 			};
 			name = Debug;
 		};
-		5555DE562CA7EABE000A5B7E /* Release */ = {
+		55C60B8F2CAEDF6B00C20675 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -244,88 +313,28 @@
 			};
 			name = Release;
 		};
-		5555DE582CA7EABE000A5B7E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ios/Preview Content\"";
-				DEVELOPMENT_TEAM = M39MJFL9Y3;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.application.KoK;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		5555DE592CA7EABE000A5B7E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ios/Preview Content\"";
-				DEVELOPMENT_TEAM = M39MJFL9Y3;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.application.KoK;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5555DE442CA7EABC000A5B7E /* Build configuration list for PBXProject "ios" */ = {
+		55C60B732CAEDF6900C20675 /* Build configuration list for PBXProject "Kok" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5555DE552CA7EABE000A5B7E /* Debug */,
-				5555DE562CA7EABE000A5B7E /* Release */,
+				55C60B8E2CAEDF6B00C20675 /* Debug */,
+				55C60B8F2CAEDF6B00C20675 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5555DE572CA7EABE000A5B7E /* Build configuration list for PBXNativeTarget "ios" */ = {
+		55C60B8B2CAEDF6B00C20675 /* Build configuration list for PBXNativeTarget "Kok" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5555DE582CA7EABE000A5B7E /* Debug */,
-				5555DE592CA7EABE000A5B7E /* Release */,
+				55C60B8C2CAEDF6B00C20675 /* Debug */,
+				55C60B8D2CAEDF6B00C20675 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 5555DE412CA7EABC000A5B7E /* Project object */;
+	rootObject = 55C60B702CAEDF6900C20675 /* Project object */;
 }
