@@ -20,11 +20,17 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         webView = WKWebView(frame: .zero, configuration: config)
         webView.navigationDelegate = self
         webView.translatesAutoresizingMaskIntoConstraints = false
+        webView.scrollView.bounces = false
+        
+        
+        //User Agent 수정
+//        webView.customUserAgent = "IosApp/1.0"
+
         self.view.backgroundColor = .white
         self.view.addSubview(webView)
         
         NSLayoutConstraint.activate([
-            webView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor), // 상단을 뷰의 최상단으로 설정
+            webView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             webView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             webView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
@@ -74,3 +80,9 @@ class WebViewController: UIViewController, WKNavigationDelegate {
      */
 }
 
+extension AppDelegate {
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        // 회전 비활성화 (세로 모드 고정)
+        return .portrait
+    }
+}

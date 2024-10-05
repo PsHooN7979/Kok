@@ -148,6 +148,8 @@
 				DEVELOPMENT_TEAM = M39MJFL9Y3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Kok/Resources/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "KoK에서 카메라에 접근하려고 합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "KoK에서 사진에 접근하려고 합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -176,6 +178,8 @@
 				DEVELOPMENT_TEAM = M39MJFL9Y3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Kok/Resources/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "KoK에서 카메라에 접근하려고 합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "KoK에서 사진에 접근하려고 합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
