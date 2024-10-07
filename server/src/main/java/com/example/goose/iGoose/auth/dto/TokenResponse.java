@@ -17,5 +17,4 @@ public class TokenResponse {
         this.refreshToken = refreshToken;
     }
 
-    // Getters and Setters
 }

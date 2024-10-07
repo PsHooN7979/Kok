@@ -1,7 +1,6 @@
 package com.example.goose.iGoose.auth.service;
 
 import com.example.goose.common.jwt.JwtTokenProvider;
-import com.example.goose.common.service.CustomUserDetailsService;
 import com.example.goose.common.service.RefreshTokenService;
 import com.example.goose.iGoose.auth.dto.LoginRequest;
 import com.example.goose.iGoose.auth.mapper.AuthMapper;
@@ -9,12 +8,15 @@ import com.example.goose.iGoose.auth.vo.UserVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import java.util.Random;
+import java.util.Date;
 
 import java.util.UUID;
-import java.util.logging.Logger;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -25,14 +27,53 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final RefreshTokenService refreshTokenService;
-    private final CustomUserDetailsService userDetailsService;
+    private final JavaMailSender mailSender;
 
 
     // 회원가입 로직
-    public void signup(UserVO userVO) throws Exception {
+    public ResponseEntity<?> signup(UserVO userVO) throws Exception {
+        String verificationCode = generateVerificationCode();
+
         userVO.setUuid(UUID.randomUUID().toString());
         userVO.setPassword(passwordEncoder.encode(userVO.getPassword())); // 비밀번호 암호화
+        userVO.setIs_verified(false);
+        userVO.setEmail(userVO.getEmail());
+        userVO.setVerification(verificationCode);
+        userVO.setExpire(new Date());
         authMapper.insertUser(userVO);
+
+
+        sendVerificationEmail(userVO.getEmail(), verificationCode)  ;
+        return ResponseEntity.ok("이메일 인증 해라");
+
+    }
+
+    private String generateVerificationCode() {
+        return String.format("%06d", new Random().nextInt(999999));
+    }
+
+    public void verifyEmail(String email, String code) throws Exception {
+        UserVO userVO = authMapper.findByEmail(email);
+        if (userVO == null) {
+            throw new Exception("유저를 찾을 수 없습니다.");
+        }
+
+        if (!userVO.getVerification().equals(code)) {
+            throw new Exception("코드가 일치하지 않습니다.");
+        }
+
+        Date now = new Date();
+        long diff = now.getTime() - userVO.getExpire().getTime();
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
+
+        if (minutes > 3) {
+            throw new Exception("만료된 코드 입니다.");
+        }
+        userVO.setIs_verified(true);
+        userVO.setExpire(null);
+        authMapper.updateEmailVerified(userVO);
+
+
     }
 
     // 로그인 로직
@@ -66,7 +107,7 @@ public class AuthService {
             refreshToken = refreshToken.substring(7);
 
         }
-        
+
         if(!jwtTokenProvider.validateToken(refreshToken)) {
             throw new Exception("유효하지 않은 refreshToken");
         }
@@ -82,16 +123,20 @@ public class AuthService {
 
     }
 
+    // 이메일 인증 토큰 로직
+    public String generateVerificationToken(UserVO userVO) throws Exception {
+        return UUID.randomUUID().toString();
+    }
+
 
     // 새로운 refreshToken 생성
     public ResponseEntity<?> refreshAccessToken(String refreshToken) throws Exception {
-        // 토큰 만료 여부 검증
         if (refreshToken.startsWith("Bearer ")) {
             refreshToken = refreshToken.substring(7);
-
         }
+        // 토큰 만료 여부 검증
         if (!jwtTokenProvider.validateToken(refreshToken)) {
-            return ResponseEntity.status(401).body("유효하지 않은 Rrefresh Token 입니다.");
+            return ResponseEntity.status(401).body("유효하지 않은 Refresh Token 입니다.");
         }
 
         String uuid = jwtTokenProvider.getUserIdFromToken(refreshToken);
@@ -126,5 +171,22 @@ public class AuthService {
                 .header("Refresh-Token", "Bearer " + newRefeshToken)
                 .body("토큰 재발행 성공");
     }
+
+    // email 인증 메일 전송 로직
+    public void sendVerificationEmail(String email, String verification){
+        if (email == null || !email.contains("@")) {
+            throw new IllegalArgumentException("Invalid email address: " + email);
+        }
+        String subject = "이메일 인증";
+        String message = "이메일 인증 코드 : " + verification + ". 인증 코드 만료시간은 3분 입니다.";
+
+        SimpleMailMessage emailMessage = new SimpleMailMessage();
+        emailMessage.setTo(email);
+        emailMessage.setSubject(subject);
+        emailMessage.setText(message);
+
+        mailSender.send(emailMessage);
+    }
+
 
 }
