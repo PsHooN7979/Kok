@@ -1,12 +1,14 @@
 package com.example.goose.common.jwt;
 
 import com.example.goose.iGoose.auth.dto.LoginRequest;
+import com.example.goose.iGoose.auth.vo.UserVO;
 import io.jsonwebtoken.*;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Random;
 
 @Component
 public class JwtTokenProvider {
@@ -20,6 +22,9 @@ public class JwtTokenProvider {
     @Getter
     @Value("${jwt.refresh-token-expiration}")
     private long refreshTokenValidity;
+
+    @Value("${jwt.email-token-expiration}")
+    private long emailTokenValidity;
 
 
 
@@ -46,11 +51,31 @@ public class JwtTokenProvider {
                 .compact();
     }
 
+    // email 인증 랜덤 숫자 생성
+    public String generateVerificationCode() {
+        Random random = new Random();
+        int code = 100000 + random.nextInt(900000);
+        return String.valueOf(code);
+    }
+
+
+    // email 인증 token 에서 email 추출
+    public String getEmailFromToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
+
     // 토큰 검증
     public boolean validateToken(String token) {
         try {
             Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return true;
+        } catch (ExpiredJwtException e) {
+            // Log token expired event
+            return false;
         } catch (JwtException | IllegalArgumentException e) {
             return false;
         }

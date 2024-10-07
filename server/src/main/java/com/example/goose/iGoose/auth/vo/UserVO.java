@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -22,31 +23,15 @@ public class UserVO implements UserDetails {
 
     private String id;
 
-    private String name;
-
     private String password;
-
-    private String pronoun;
-
-    private String intor;
-
-    private String gender;
 
     private String email;
 
-    private String tel;
-
-    private String status;
-
-    private String profile;
-
-    private String feeling;
-
-    private Boolean is_professional;
-
     private Boolean is_verified;
 
-    private String revenue_status;
+    private String verification;
+
+    private Date expire;
 
     private LocalDateTime created;
 

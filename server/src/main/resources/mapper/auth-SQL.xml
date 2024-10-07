@@ -5,38 +5,22 @@
     <insert id="insertUser" parameterType="UserVO">
         INSERT INTO "USER" (uuid,
                             id,
-                            name,
                             password,
                             email,
-                            pronoun,
-                            intor,
-                            gender,
-                            tel,
-                            status,
-                            profile,
-                            feeling,
-                            is_professional,
                             is_verified,
-                            revenue_status,
+                            verification,
                             created,
-                            updated)
+                            updated,
+                            expire)
         VALUES (#{uuid},
                 #{id},
-                #{name},
                 #{password},
                 #{email},
-                #{pronoun},
-                #{intor},
-                #{gender},
-                #{tel},
-                #{status},
-                #{profile},
-                #{feeling},
-                #{is_professional},
                 #{is_verified},
-                #{revenue_status},
+                #{verification},
                 now(),
-                now());
+                now(),
+                #{expire});
     </insert>
 
 </mapper>
