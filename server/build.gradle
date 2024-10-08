@@ -61,6 +61,12 @@ dependencies {
     // Spring Boot GraphQL Tools to map schemas to resolvers
     implementation 'com.graphql-java-kickstart:graphql-java-tools:11.1.0'
 
+    // javamail
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    // firebase
+    implementation 'com.google.firebase:firebase-admin:9.1.1'
+
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

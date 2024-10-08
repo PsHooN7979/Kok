@@ -17,9 +17,12 @@
     "@mui/material": "^6.1.2",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
+    "@types/react-router-dom": "^5.3.3",
     "app": "file:",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
+    "v6": "^0.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
